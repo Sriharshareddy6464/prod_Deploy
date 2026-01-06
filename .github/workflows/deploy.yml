@@ -1,0 +1,41 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy on EC2
+        run: |
+          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            cd /home/ubuntu
+
+            if [ ! -d "proddeploy" ]; then
+              git clone https://github.com/Sriharshareddy6464/prod_Deploy.git proddeploy
+            fi
+
+            cd proddeploy
+            git pull origin main
+
+            docker stop proddeploy || true
+            docker rm proddeploy || true
+
+            docker build -t proddeploy-api .
+            docker run -d -p 80:8000 --name proddeploy proddeploy-api
+          EOF
