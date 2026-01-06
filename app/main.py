@@ -4,7 +4,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"status": "ProdDeploy API is running"}
+    return {"status": "ProdDeploy API is LIVE from CI/CD"}
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
