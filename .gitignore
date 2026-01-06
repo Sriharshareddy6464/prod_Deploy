@@ -1,0 +1,17 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# SSH Keys
+proddeploy-key
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
