@@ -49,5 +49,5 @@ jobs:
             docker rm proddeploy || true
 
             docker build -t proddeploy-api .
-            docker run -d -p 80:8000 --name proddeploy proddeploy-api
+            docker run -d -p 8000:8000--name proddeploy proddeploy-api
           EOF
