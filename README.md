@@ -1,4 +1,4 @@
-# ProdDeploy – Production CI/CD Pipeline with AWS, Docker, Nginx & SSL
+# Production Deployment System – Production CI/CD Pipeline with AWS, Docker, Nginx & SSL
 
 ## Overview
 ProdDeploy is a production-grade deployment pipeline that automatically builds and deploys a Dockerized FastAPI application to an AWS EC2 instance using GitHub Actions. The application is fronted by Nginx as a reverse proxy and secured with HTTPS using Let’s Encrypt SSL certificates. A custom domain is configured via GoDaddy DNS.
